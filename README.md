@@ -1,6 +1,6 @@
 # Spring-Mass Oscillation Simulator
 
-A browser-based physics simulation for exploring spring-mass oscillation systems. Built with React, TypeScript, D3.js, and Tailwind CSS.
+A browser-based physics simulation for exploring spring-mass oscillation systems. Built with React, TypeScript, D3.js, and Tailwind CSS and [Github Spec-Kit](https://github.com/github/spec-kit)
 
 <p align="center">
 	<img src="./src/assets/screenshot.png" alt="Spring-Mass Oscillation Simulator Screenshot" width="600" />

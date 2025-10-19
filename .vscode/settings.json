@@ -9,6 +9,8 @@
     "chat.tools.terminal.autoApprove": {
         ".specify/scripts/bash/": true,
         ".specify/scripts/powershell/": true
-    }
+    },
+    "css.customData": [".vscode/css-custom-data.json"],
+    "css.lint.unknownAtRules": "ignore"
 }
 

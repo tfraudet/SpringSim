@@ -1,50 +1,112 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+
+Version change: [UNSET] -> 1.0.0
+
+Modified principles (placeholders replaced):
+- [PRINCIPLE_1_NAME] -> User-Centered UX (NON-NEGOTIABLE)
+- [PRINCIPLE_2_NAME] -> Modern Visual Design
+- [PRINCIPLE_3_NAME] -> Performance & Efficiency (NON-NEGOTIABLE)
+- [PRINCIPLE_4_NAME] -> Minimal Dependencies & Simplicity
+- [PRINCIPLE_5_NAME] -> Progressive Enhancement & Resilience
+
+Added sections: none
+Removed sections: none
+
+Templates checked:
+- .specify/templates/plan-template.md ✅ aligned
+- .specify/templates/spec-template.md ✅ aligned
+- .specify/templates/tasks-template.md ✅ aligned
+- .specify/templates/commands/*.md ⚠ none present (no command files found)
+
+Follow-up items:
+- RATIFICATION_DATE: 2025-10-18 (provided)
+-->
+
+# SpingSim2 Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### User-Centered UX (NON-NEGOTIABLE)
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+All design and implementation decisions MUST prioritize clear, discoverable, and efficient user
+journeys. The single-page application (SPA) MUST deliver end-to-end flows that let users
+complete primary tasks in a minimal number of steps, with clear affordances and visible
+state. Accessibility (WCAG 2.1 AA or better) and keyboard/navigation support are required.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+Rationale: A successful SPA is defined by how easily users accomplish their goals. Making
+UX non-negotiable prevents technical choices that sacrifice clarity or accessibility.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Modern Visual Design
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+The application MUST present a cohesive, modern look-and-feel: consistent spacing,
+typography, color system, and component usage. Use design tokens and a single source of
+truth for theming. Micro-interactions and motion are allowed but MUST be subtle and
+optimized for performance (see Performance principle). Visual regressions MUST be caught
+during review (design review checklist) though automated visual testing is optional.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+Rationale: Consistent visual language increases trust and reduces user cognitive load.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### Performance & Efficiency (NON-NEGOTIABLE)
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+The SPA MUST meet defined performance budgets. Aim for Lighthouse scores >= 90 where
+reasonable, FCP (First Contentful Paint) under 1.5s on typical mobile networks, and
+interactive time targets (TTI) that keep perceived latency low. Implement lazy loading,
+code-splitting, and caching strategies to minimize initial bundle size and CPU overhead.
+Measure performance with real metrics (RUM) and p95 targets; optimize hot paths first.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Rationale: Performance directly affects retention and conversion in SPAs. Declaring
+performance non-negotiable keeps design and engineering aligned on measurable goals.
+
+### Minimal Dependencies & Simplicity
+
+Prefer zero-dependency or minimal-dependency implementations. Any dependency MUST be
+approved via the dependency vetting checklist: size impact, maintenance activity, security
+record, license compatibility, and long-term viability. Vendor and framework choices
+should favor lightweight (e.g., Preact, Svelte) or vanilla implementations when they
+meet UX and performance goals. Lockfiles and reproducible installs are required.
+
+Rationale: Minimizing dependencies reduces bundle size, security surface area, and
+maintenance burden—important for fast, reliable SPAs.
+
+### Progressive Enhancement & Resilience
+
+The SPA MUST degrade gracefully when full JS is unavailable or slow. Core content and
+primary actions should remain accessible where feasible (server-side rendering or
+prerendered fallbacks). Network error states MUST be handled explicitly with clear UI
+messages and retry affordances. Offline capability (service workers) is encouraged for
+high-value flows but optional depending on scope.
+
+Rationale: Users operate in varied network and device conditions. Progressive
+enhancement ensures broader reach and a better baseline experience.
+
+## Additional Constraints
+
+Technology and performance constraints tailored for a SPA:
+
+- Target platform: modern browsers (last two major releases) and iOS/Android webviews.
+- Preferred frameworks: lightweight frameworks or libraries; avoid heavy meta-frameworks
+  unless necessary for the product goals.
+- Bundle budget: aim for <= 150KB gzipped for initial critical JS where feasible; keep
+  large features lazy-loaded.
+- Accessibility: WCAG 2.1 AA baseline; keyboard focus, semantics, and color contrast
+  validate on each release.
+- Security: follow secure-by-default headers, CSP, and dependency vulnerability scans.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Amendments to this constitution MUST be documented as a change note and approved by the
+project maintainers. Major changes (removing or redefining a non-negotiable principle)
+require a migration plan and a clear rollback strategy. Minor clarifications may be
+approved by maintainers and recorded in the next patch amendment.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+- Amendment procedure: propose change (PR) -> discuss (issue/PR comments) -> approval
+  by at least two maintainers -> merge and update Last Amended date.
+- Versioning policy: semantic versioning for the constitution itself:
+  - MAJOR: backward incompatible governance or principle removals/redefinitions.
+  - MINOR: new principle or material expansion of guidance.
+  - PATCH: clarifications, wording fixes, or non-semantic refinements.
+- Compliance: PRs touching UX or performance MUST reference which principle(s) they
+  satisfy and provide evidence if relevant (metrics, screenshots, audit notes).
+
+**Version**: 1.0.0 | **Ratified**: 2025-10-18 | **Last Amended**: 2025-10-18
